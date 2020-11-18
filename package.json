@@ -1,0 +1,12 @@
+{
+  "name": "project12c",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Mahmood787/Project12c.git",
+  "author": "Mahmood787 <ali_khan87@live.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces":[
+    "packages/*"
+  ]
+}
