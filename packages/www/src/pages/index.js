@@ -1,11 +1,17 @@
 import React from 'react'
+import {Button, Container, Flex, Heading} from 'theme-ui'
 
-const index = () => {
-    return (
-        <div>
-            <h1>Hello world</h1>
-        </div>
+export default props=> (
+        <Container>
+            <Flex sx={{flexDirection:"column", padding:3}}>
+                <Heading as="h1">Hello World</Heading>
+                <Button 
+                    sx={{marginTop:2, color:"black"}}
+                    onClick={()=>alert("Just Login bro")}
+                    >
+                        Login
+                </Button>
+            </Flex>
+        </Container>
     )
-}
 
-export default index
