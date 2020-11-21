@@ -6,7 +6,11 @@
   "author": "Mahmood787 <ali_khan87@live.com>",
   "license": "MIT",
   "private": true,
-  "workspaces":[
+  "workspaces": [
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "gatsby-cli": "^2.13.1",
+    "gatsby-plugin-create-client-paths": "^2.4.0"
+  }
 }
