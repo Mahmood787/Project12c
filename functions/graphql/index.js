@@ -10,7 +10,7 @@ type Todo{
     text: String!
     done: Boolean!
 }
-type Mutation{
+type Mutations{
     addTodo(text:String!):Todo
     updateTodoDone(id:ID!):Todo
 }
@@ -23,7 +23,7 @@ const resolvers = {
         todos:()=> {
             return Object.values(todoss)
     },
-    Mutation:{
+    Mutations:{
         addTodo:(_,{text})=>{
             todosIndex++;
             const id = `key-${todosIndex}`;
@@ -38,7 +38,6 @@ const resolvers = {
     }
 }
 }
-
 const server = new ApolloServer({
     typeDefs,
     resolvers
