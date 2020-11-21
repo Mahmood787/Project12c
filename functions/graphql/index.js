@@ -22,7 +22,7 @@ const resolvers = {
     Query:{
         todos:()=> {
             return Object.values(todoss)
-    },
+    }},
     Mutations:{
         addTodo:(_,{text})=>{
             todosIndex++;
@@ -37,7 +37,7 @@ const resolvers = {
         }
     }
 }
-}
+
 const server = new ApolloServer({
     typeDefs,
     resolvers
