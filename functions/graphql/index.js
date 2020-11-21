@@ -31,7 +31,8 @@ const resolvers = {
             return todoss[id]
         },
         updateTodoDone:(_,{id})=>{
-            todoss[id].done=true
+            todoss
+            [id].done=true
             return todoss[id]
         }
     }
