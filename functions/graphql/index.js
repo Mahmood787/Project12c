@@ -10,7 +10,7 @@ type Todo{
     text: String!
     done: Boolean!
 }
-type Mutations{
+type Mutation{
     addTodo(text:String!):Todo
     updateTodoDone(id:ID!):Todo
 }
@@ -23,7 +23,7 @@ const resolvers = {
         todos:()=> {
             return Object.values(todoss)
     }},
-    Mutations:{
+    Mutation:{
         addTodo:(_,{text})=>{
             todosIndex++;
             const id = `key-${todosIndex}`;
