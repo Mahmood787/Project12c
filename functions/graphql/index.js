@@ -15,13 +15,13 @@ type Mutation{
     updateTodoDone(id:ID!):Todo
 }
 `;
-const todos={}
+const todoss={}
 let todosIndex = 0;
 // resolver function fro schema
 const resolvers = {
     Query:{
         todos:()=> {
-            return Object.values(todos)
+            return Object.values(todoss)
     },
     Mutation:{
         addTodo:(_,{text})=>{
@@ -32,7 +32,7 @@ const resolvers = {
         },
         updateTodoDone:(_,{id})=>{
             todos[id].done=true
-            return todos[id]
+            return todoss[id]
         }
     }
 }
