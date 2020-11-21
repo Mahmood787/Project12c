@@ -27,11 +27,11 @@ const resolvers = {
         addTodo:(_,{text})=>{
             todosIndex++;
             const id = `key-${todosIndex}`;
-            todos[id]={id,text,done:false}
-            return todos[id]
+            todoss[id]={id,text,done:false}
+            return todoss[id]
         },
         updateTodoDone:(_,{id})=>{
-            todos[id].done=true
+            todoss[id].done=true
             return todoss[id]
         }
     }
