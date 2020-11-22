@@ -15,12 +15,12 @@ const authLink= setContext((_,{headers})=>{
         }
     }
 })
-const HttpLink = new HttpLink({
+const httpLink = new HttpLink({
     uri: "https://mahmood-project-12c.netlify.app/.netlify/functions/graphql"
 })
 const client = new ApolloClient({
     cache: new InMemoryCache(),
-    link: authLink.concat(HttpLink)
+    link: authLink.concat(httpLink)
 })
 
 exports.wrapRootElement=({element})=>{
