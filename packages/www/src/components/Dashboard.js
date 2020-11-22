@@ -6,14 +6,14 @@ import {gql, useMutation, useQuery} from '@apollo/client'
 
 // Graphql queries
 const ADD_TODO =gql`
-    mutation($type:String!){
-        addTodo(text:"one todo"){
+    mutation($text:String!){
+        addTodo(text:$text){
             id
         }
     }
 `;
 const UPDATE_TODO_DONE = gql`
-    mutation UpdateTodoDone($type: ID!){
+    mutation UpdateTodoDone($id: ID!){
         updateTodoDone(id:$id){
             text
             done
@@ -29,25 +29,11 @@ const GET_TODOS=gql`
         }
     }
 `;
-const todosReducer=(state, action)=>{
-    switch(action.type){
-        case "addTodo":
-            return [{done:false, value:action.payload},...state]
-        case "toggleTodo":
-            const newSate = [...state]
-            newSate[action.payload]={
-                done: !state[action.payload].done,
-                value: state[action.payload].value
-            }
-            console.log(state[action.payload])
-            return newSate
-    }
-}
+
 
 export default  ()=>{
     const {user, identity:netlifyIdentity} = useContext(IdentityContext)
     const inputRef = useRef()
-    const [todos, dispatch]= useReducer(todosReducer,[])
     const [addTodo]= useMutation(ADD_TODO)
     const [updateTodoDone ] = useMutation(UPDATE_TODO_DONE)
     const {loading,error,data,refetch} = useQuery(GET_TODOS)
