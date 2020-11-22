@@ -20,8 +20,7 @@ type Mutation{
     updateTodoDone(id:ID!):Todo
 }
 `;
-const todoss={}
-let todosIndex = 0;
+
 // resolver function fro schema
 const resolvers = {
     Query:{
@@ -30,7 +29,7 @@ const resolvers = {
                 return []
             }else{
                 const results = await client.query(
-                    q.Paginate(q.Match(q.Index("todos_by_user"), user))
+                    q.Paginate(q.Match(q.Index("todos_by_owner"), user))
                 );
                 return results.data.map(([ref,text,done])=>{
                     return {
