@@ -71,7 +71,7 @@ export default  ()=>{
                 {error ? (<div>{error.message}</div>):null}
                 {!loading && !error && (
                 <ul sx={{listStyleType:"none"}}>
-                    {todos.map((todo) =>(
+                    {data.todos.map((todo) =>(
                         <Flex as="li" 
                             key={todo.id}
                             onClick={async()=>{
