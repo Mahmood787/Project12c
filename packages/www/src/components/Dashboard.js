@@ -51,6 +51,7 @@ export default  ()=>{
     const [addTodo]= useMutation(ADD_TODO)
     const [updateTodoDone ] = useMutation(UPDATE_TODO_DONE)
     const {loading,error,data,refetch} = useQuery(GET_TODOS)
+    console.log(data)
     return (
         <Container>
             <Flex as="nav">
@@ -67,9 +68,10 @@ export default  ()=>{
                     </NavLink>
                 )}
             </Flex>
-            <Flex as="form" onSubmit={e=>{
+            <Flex as="form" onSubmit={async e=>{
                 e.preventDefault()
-                addTodo({variables:{text:inputRef.current.value}})
+                await addTodo({variables:{text:inputRef.current.value}})
+                await refetch()
                 inputRef.current.value=""
             }}>
                 <Label sx={{display:"flex"}}>
@@ -85,13 +87,15 @@ export default  ()=>{
                 <ul sx={{listStyleType:"none"}}>
                     {todos.map((todo) =>(
                         <Flex as="li" 
-                            onClick={()=>{
-                                updateTodoDone({variables:{id: todo.id}})
+                            key={todo.id}
+                            onClick={async()=>{
+                                await updateTodoDone({variables:{id: todo.id}})
+                                await refetch()
                                 
                             }}
                         >
                             <Checkbox checked={todo.done}/>
-                            <span>{todo.value}</span>
+                            <span>{todo.text}</span>
                         </Flex>
                     ))}
                 </ul>
