@@ -29,6 +29,7 @@ npm manifest:
       "packages/*"
     ],
     "dependencies": {
+      "@apollo/client": "^3.2.7",
       "gatsby-cli": "^2.13.1",
       "gatsby-plugin-create-client-paths": "^2.4.0"
     }
@@ -38,4 +39,4 @@ yarn manifest:
   No manifest
 
 Lockfile: 
-  No lockfile
+  

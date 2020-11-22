@@ -2,7 +2,33 @@ import React, { useContext, useReducer, useRef, useState } from 'react'
 import { Link} from '@reach/router'
 import {IdentityContext} from '../../netlify-identity-context'
 import {Flex, Container, NavLink, Input, Button,Label, Checkbox} from 'theme-ui'
+import {gql, useMutation, useQuery} from '@apollo/client'
 
+// Graphql queries
+const ADD_TODO =gql`
+    mutation($type:String!){
+        addTodo(text:"one todo"){
+            id
+        }
+    }
+`;
+const UPDATE_TODO_DONE = gql`
+    mutation UpdateTodoDone($type: ID!){
+        updateTodoDone(id:$id){
+            text
+            done
+        }
+    }
+`; 
+const GET_TODOS=gql`
+    query GetTods{
+        todos{
+            id
+            text
+            done
+        }
+    }
+`;
 const todosReducer=(state, action)=>{
     switch(action.type){
         case "addTodo":
@@ -22,6 +48,9 @@ export default  ()=>{
     const {user, identity:netlifyIdentity} = useContext(IdentityContext)
     const inputRef = useRef()
     const [todos, dispatch]= useReducer(todosReducer,[])
+    const [addTodo]= useMutation(ADD_TODO)
+    const [updateTodoDone ] = useMutation(UPDATE_TODO_DONE)
+    const {loading,error,data,refetch} = useQuery(GET_TODOS)
     return (
         <Container>
             <Flex as="nav">
@@ -40,7 +69,7 @@ export default  ()=>{
             </Flex>
             <Flex as="form" onSubmit={e=>{
                 e.preventDefault()
-                dispatch({type:"addTodo",payload:inputRef.current.value})
+                addTodo({variables:{text:inputRef.current.value}})
                 inputRef.current.value=""
             }}>
                 <Label sx={{display:"flex"}}>
@@ -50,15 +79,15 @@ export default  ()=>{
                 <Button sx={{marginLeft:1}}>Submit</Button>
             </Flex>
             <Flex sx={{flexDirection:"column"}}>
+                {loading ? (<div>Loading...</div>):null}
+                {error ? (<div>{error.message}</div>):null}
+                {!loading && !error && (
                 <ul sx={{listStyleType:"none"}}>
-                    {todos.map((todo, i) =>(
+                    {todos.map((todo) =>(
                         <Flex as="li" 
                             onClick={()=>{
-                                dispatch({
-                                    type: "toggleTodo",
-                                    payload: i
-                                })
-                                console.log(i)
+                                updateTodoDone({variables:{id: todo.id}})
+                                
                             }}
                         >
                             <Checkbox checked={todo.done}/>
@@ -66,6 +95,7 @@ export default  ()=>{
                         </Flex>
                     ))}
                 </ul>
+                )}
             </Flex>
         </Container>
     )}

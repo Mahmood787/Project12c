@@ -6,9 +6,12 @@ const newTheme ={
     ...light,
     sizes: {container: 1024}
 }
+
 //this going to be a wraper for element
 module.exports= ({element})=>(
     <Provider>
-        <ThemeProvider theme={newTheme} >{element}</ThemeProvider>
+
+            <ThemeProvider theme={newTheme} >{element}</ThemeProvider>
+
     </Provider>
 )
