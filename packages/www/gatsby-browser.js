@@ -2,13 +2,25 @@
 const React = require('react');
 const wrapRootElement = require('./wrape-root-element')
 const {ApolloClient,ApolloProvider,InMemoryCache,HttpLink} = require('@apollo/client')
-
+const {setContext} = require('apollo-link-context')
+const {netlifyIdentity}= require('netlify-identity-widget')
 //seting Apollo client
+const authLink= setContext((_,{headers})=>{
+    const user = netlifyIdentity.current_user()
+    const token = user.token.access_token
+    return {
+        headers:{
+            ...headers,
+            Authorization: token? `Bearer ${token}`: ""
+        }
+    }
+})
+const HttpLink = new HttpLink({
+    uri: "https://mahmood-project-12c.netlify.app/.netlify/functions/graphql"
+})
 const client = new ApolloClient({
     cache: new InMemoryCache(),
-    link: new HttpLink({
-        uri: "https://mahmood-project-12c.netlify.app/.netlify/functions/graphql"
-    })
+    link: authLink.concat(HttpLink)
 })
 
 exports.wrapRootElement=({element})=>{

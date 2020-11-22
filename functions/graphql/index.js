@@ -20,8 +20,12 @@ let todosIndex = 0;
 // resolver function fro schema
 const resolvers = {
     Query:{
-        todos:()=> {
-            return Object.values(todoss)
+        todos:(parent,args,{user})=> {
+            if(!user){
+                return []
+            }else{
+                return Object.values(todoss)
+            }
     }},
     Mutation:{
         addTodo:(_,{text})=>{
@@ -40,7 +44,16 @@ const resolvers = {
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: ({context})=>{
+        if(context.clientContext.user){
+
+            return {user: context.clientContext.user.sub}
+        }
+        else{
+            return {}
+        }
+    }
 })
 exports.handler = server.createHandler({
     cors: {
