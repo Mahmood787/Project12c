@@ -1,4 +1,9 @@
 const {ApolloServer, gql} = require('apollo-server-lambda')
+const faunadb=require('faunadb')
+const q = faunadb.query
+
+const client = new faunadb.Client({secret:process.env.FAUNADB_ADMIN_SECRET})
+
 // construct schema using glq
 
 const typeDefs= gql`
@@ -20,24 +25,56 @@ let todosIndex = 0;
 // resolver function fro schema
 const resolvers = {
     Query:{
-        todos:(parent,args,{user})=> {
+        todos:async(parent,args,{user})=> {
             if(!user){
                 return []
             }else{
-                return Object.values(todoss)
+                const results = client.query(
+                   await q.Paginate(q.Match(q.Index("todos_by_user"), user))
+                );
+                return results.data.map(([ref,text,done])=>{
+                    return {
+                        id:ref.id,
+                        text,
+                        done
+                    }
+                })
             }
     }},
     Mutation:{
-        addTodo:(_,{text})=>{
-            todosIndex++;
-            const id = `key-${todosIndex}`;
-            todoss[id]={id,text,done:false}
-            return todoss[id]
+        addTodo:async(_,{text},{user})=>{
+            if(!user){
+                throw new Error("Must be authenticated to add todos")
+            }
+            const results = await client.query(
+                q.Create(q.Collection("todos"),{
+                    data:{
+                        text,
+                        done:false,
+                        owner:user
+                    }
+                })
+            )
+            return {
+                ...results.data,
+                id: results.ref.id
+            }
         },
-        updateTodoDone:(_,{id})=>{
-            todoss
-            [id].done=true
-            return todoss[id]
+        updateTodoDone:async(_,{id})=>{
+            if(!user){
+                throw new Error("Must be authenticated to add todos")
+            }
+            const results= await client.query(
+                q.Update(q.Ref(q.Collection('todos'),id),{
+                    data:{
+                        done:true
+                    }
+                })
+            )
+            return {
+                ...results.data,
+                id: results.ref.id
+            }
         }
     }
 }
