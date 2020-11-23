@@ -71,7 +71,7 @@ export default  ()=>{
             <Flex pl={6} pr={6} as="form" onSubmit={async e=>{
                 e.preventDefault()
                 await addTodo({variables:{text:inputRef.current.value}})
-                inputRef.current.value=""
+                
                 await refetch()
             }}>
                 <Label sx={{display:"flex",fontFamily:"system-ui"}}>
