@@ -25,9 +25,7 @@ const UPDATE_TODO_DONE = gql`
 `; 
 const DELETE_TODO=gql`
     mutation DeleteTodo($id:ID!){
-        deleteTodo(id:$id){
-            text
-        }
+
     }
 `;
 const GET_TODOS=gql`
@@ -45,10 +43,10 @@ export default  ()=>{
     const {user, identity:netlifyIdentity} = useContext(IdentityContext)
     const inputRef = useRef()
     const [addTodo]= useMutation(ADD_TODO)
-    const [deleteTodo]= useMutation(DELETE_TODO)
+    const [addTodo]= useMutation(DELETE_TODO)
     const [updateTodoDone ] = useMutation(UPDATE_TODO_DONE)
     const {loading,error,data,refetch} = useQuery(GET_TODOS)
-    console.log(data.todos)
+    console.log(data)
     return (
         <Container>
             <Flex as="nav">
@@ -72,7 +70,7 @@ export default  ()=>{
                 e.preventDefault()
                 await addTodo({variables:{text:inputRef.current.value}})
                 await refetch()
-                inputRef.current.value=" "
+                inputRef.current.value=""
             }}>
                 <Label sx={{display:"flex",fontFamily:"system-ui"}}>
                     <span sx={{marginLeft:1,background:"#3E38F2"}}>Add todo</span>
@@ -103,12 +101,8 @@ export default  ()=>{
                             <span>{todo.text}</span>
                             <Flex sx={{justifyContent:"space-between",width:"100%"}}>
                             <span>Hello</span>
-                            <Link value={todo.id} onClick={async()=>{
-                                await deleteTodo({variables:{id:todo.id}})
-                                await refetch()
-                            }}>
-                                <FontAwesomeIcon p={6} icon={faTrashAlt} /> 
-                            </Link>
+                            <FontAwesomeIcon p={6} icon={faTrashAlt} /> 
+                            
                             </Flex>
                         </Flex>
                       
