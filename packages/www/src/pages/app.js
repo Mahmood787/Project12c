@@ -8,7 +8,7 @@ let DashLoggedOut = ()=> {
     return (
         <Container>       
             <Flex sx={{flexDirection:"column", margin:"auto"}} pt={6}>
-                <Heading as="h1" pt={4} sx={{margin:"auto"}}>Wellcome to Serverless Todo App</Heading>
+                <Heading as="h1" p={4} sx={{margin:"auto"}}>Wellcome to Serverless Todo App</Heading>
                 <Button 
                     sx={{marginTop:2, color:"black", margin:"auto"}}
                     onClick={()=>netlifyIdentity.open()}

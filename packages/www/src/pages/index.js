@@ -15,7 +15,7 @@ export default props=> {
                 )}
             </Flex>
             <Flex sx={{flexDirection:"column", margin:"auto"}} p={6}>
-                <Heading as="h1" sx={{margin:"auto"}}>Wellcome to Serverless Todos App</Heading>
+                <Heading as="h1" p={4} sx={{margin:"auto"}}>Wellcome to Serverless Todos App</Heading>
                 <Button 
                     sx={{marginTop:"30px",margin:"auto", color:"black"}}
                     onClick={()=>netlifyIdentity.open()}
