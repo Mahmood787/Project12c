@@ -107,7 +107,7 @@ export default  ()=>{
                                 await deleteTodo({variables:{id: todo.id}})
                                 await refetch()
 
-                            } 
+                            }} 
                             p={6} icon={faTrashAlt} /> 
                             
                             </Flex>
