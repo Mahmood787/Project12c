@@ -83,7 +83,7 @@ const resolvers = {
             const results = await client.query(
                 q.Delete(q.Ref(q.Collection('todos'),id))
             )
-            return results.data
+            
         }
     }
 }
