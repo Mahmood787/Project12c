@@ -100,15 +100,13 @@ export default  ()=>{
                             }}
                         >
                             <Checkbox checked={true}/>
-                            <span>{todo.text}</span>
                             <Flex sx={{justifyContent:"space-between",width:"100%"}}>
-                            
-                            <FontAwesomeIcon onClick={async()=>{
-                                await deleteTodo({variables:{id: todo.id}})
-                                await refetch()
-
-                            }} 
-                            p={6} icon={faTrashAlt} /> 
+                                <span>{todo.text}</span>
+                                <FontAwesomeIcon onClick={async()=>{
+                                    await deleteTodo({variables:{id: todo.id}})
+                                    await refetch()
+                                }} 
+                                icon={faTrashAlt} /> 
                             
                             </Flex>
                         </Flex>
