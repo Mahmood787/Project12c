@@ -14,13 +14,13 @@ export default props=> {
                     <NavLink href="#!" p={2}>{user.user_metadata.full_name} </NavLink>
                 )}
             </Flex>
-            <Flex sx={{flexDirection:"column", padding:3}}>
+            <Flex sx={{flexDirection:"column"}} p={6}>
                 <Heading as="h1">Wellcome to Serverless Todos App</Heading>
                 <Button 
-                    sx={{marginTop:2, color:"black"}}
+                    sx={{marginTop:"30px", color:"black"}}
                     onClick={()=>netlifyIdentity.open()}
                     >
-                        Login
+                        Login To Todo App
                 </Button>
             </Flex>
         </Container>
