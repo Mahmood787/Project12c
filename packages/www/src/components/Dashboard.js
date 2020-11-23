@@ -91,7 +91,7 @@ export default  ()=>{
                 <ul sx={{listStyleType:"none"}}>
                     {data.todos.map((todo) =>(
                         <Flex as="li" p={2}
-                            sx={{ fontSize:"22px"}}
+                            sx={{ fontSize:"22px",alignItems: "flex-end"}}
                             key={todo.id}
                             onClick={async()=>{
                                 await updateTodoDone({variables:{id: todo.id}})
@@ -100,7 +100,7 @@ export default  ()=>{
                             }}
                         >
                             <Checkbox checked={true}/>
-                            <Flex sx={{justifyContent:"space-between",width:"100%"}}>
+                            <Flex pl={2}sx={{justifyContent:"space-between",width:"100%"}}>
                                 <span>{todo.text}</span>
                                 <FontAwesomeIcon onClick={async()=>{
                                     await deleteTodo({variables:{id: todo.id}})
