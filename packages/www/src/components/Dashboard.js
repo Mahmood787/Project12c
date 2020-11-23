@@ -98,8 +98,9 @@ export default  ()=>{
                                 await refetch()
                                 
                             }}
+                            
                         >
-                            <Checkbox checked={true}/>
+                            <Checkbox checked={todo.done}/>
                             <Flex pl={2}sx={{justifyContent:"space-between",width:"100%"}}>
                                 <span>{todo.text}</span>
                                 <FontAwesomeIcon onClick={async()=>{
