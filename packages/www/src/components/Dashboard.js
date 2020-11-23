@@ -48,7 +48,7 @@ export default  ()=>{
     const [deleteTodo]= useMutation(DELETE_TODO)
     const [updateTodoDone ] = useMutation(UPDATE_TODO_DONE)
     const {loading,error,data,refetch} = useQuery(GET_TODOS)
-    console.log(data)
+    console.log(data.todos)
     return (
         <Container>
             <Flex as="nav">
