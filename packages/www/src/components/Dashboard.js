@@ -26,7 +26,7 @@ const UPDATE_TODO_DONE = gql`
 const DELETE_TODO=gql`
     mutation DeleteTodo($id:ID!){
         deleteTodo(id:$id){
-            
+            text
         }
     }
 `;
