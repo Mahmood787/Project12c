@@ -1,9 +1,9 @@
 const React=  require('react')
 const {ThemeProvider}=  require('theme-ui')
-const {light}=  require('@theme-ui/presets')
+const {light, dark}=  require('@theme-ui/presets')
 const {Provider} = require('./netlify-identity-context')
 const newTheme ={
-    ...light,
+    ...dark,
     sizes: {container: 1024}
 }
 

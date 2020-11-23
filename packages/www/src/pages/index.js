@@ -15,7 +15,7 @@ export default props=> {
                 )}
             </Flex>
             <Flex sx={{flexDirection:"column", padding:3}}>
-                <Heading as="h1">Hello World</Heading>
+                <Heading as="h1">Wellcome to Serverless Todos App</Heading>
                 <Button 
                     sx={{marginTop:2, color:"black"}}
                     onClick={()=>netlifyIdentity.open()}
